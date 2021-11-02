@@ -1,6 +1,0 @@
-Experiments
-============
-
-Contains some experiments. 
-
-
