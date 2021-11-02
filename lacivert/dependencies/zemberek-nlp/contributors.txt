@@ -1,0 +1,22 @@
+Main Developers:
+
+Ahmet Afşın Akın
+Mehmet Dündar Akın
+
+Contributors:
+
+Ahmet Arslan
+Ali Ok
+Ayça Müge Sevinç
+Cemil Demir
+Ertuğrul Yılmaz
+Hamza Kaya
+Lütfü Çakıl
+Serkan Kaba
+Şeniz Demir
+Soner Altın
+Tuğba Pamay
+
+Please let us know if you are a contributor and your name is not listed here.
+
+Portions of the code had been developed in Tübitak BİLGEM's Speech and Language Technologies Laboratory.
