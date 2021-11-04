@@ -13,10 +13,6 @@ helper = JVMHelper()
 helper.startJVM()
 
 
-if not helper.is_jvm_ok():
-    sys.exit(helper.errors())
-
-
 sentence: str = "Açlık Oyunları (İngilizce özgün adıyla The Hunger Games), Amerikalı yazar Suzanne Collins'in 2008'de yayımlanan distopik macera türündeki romanıdır."
 morphology = Morphology()
 morphology.disambiguate(sentence)

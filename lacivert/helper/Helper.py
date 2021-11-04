@@ -6,16 +6,25 @@ from .. import properties
 
 
 class JVMHelper:
+    
     def __init__(self):
-        logging.info("Helper class initialized")
         self._errors: List[str] = []
         self._res: List[str] = []
+        logging.info("Helper class initialized")
         
 
     def startJVM(self):
         logging.info("Java Virtual Machine is starting")
         startJVM(getDefaultJVMPath(), classpath=[properties.ZEMBEREK_PATH], convertStrings=False)
         
+        if not self.is_jvm_ok():
+            logging.error("Error while starting Java Virtual Machine. Details below.")
+            for err in self._errors:
+                logging.error(err)
+            raise RuntimeError("Error while starting Java Virtual Machine")
+        
+        logging.info("Java Virtual Machine started")
+
 
     def __is_zemberek_loaded(self):
         zemberek_loaded = properties.ZEMBEREK_PATH in str(java.lang.System.getProperty("java.class.path"))
@@ -23,9 +32,7 @@ class JVMHelper:
         if zemberek_loaded:
             logging.info("Zemberek Class loaded successfully")
             return True
-
         else:
-            logging.error("Zemberek Class could not be loaded")
             self._errors.append("Zemberek Class could not be loaded")
             return False
 
@@ -33,10 +40,8 @@ class JVMHelper:
     def __is_jvm_started(self):
         jvm_started = bool(isJVMStarted())
         if jvm_started:
-            logging.info("Java Virtual Machine started") 
             return True
         else:
-            logging.error("Java Virtual Machine could not be started")
             self._errors.append("Java Virtual Machine could not be started")
             return False
 
