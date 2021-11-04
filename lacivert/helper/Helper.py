@@ -2,7 +2,8 @@ from jpype import JClass, getDefaultJVMPath, startJVM, shutdownJVM, JString, isJ
 from typing import List
 import os
 import logging
-import properties
+from .. import properties
+
 
 class JVMHelper:
     def __init__(self):
@@ -14,13 +15,15 @@ class JVMHelper:
     def startJVM(self):
         logging.info("Java Virtual Machine is starting")
         startJVM(getDefaultJVMPath(), classpath=[properties.ZEMBEREK_PATH], convertStrings=False)
-
+        
 
     def __is_zemberek_loaded(self):
         zemberek_loaded = properties.ZEMBEREK_PATH in str(java.lang.System.getProperty("java.class.path"))
+
         if zemberek_loaded:
             logging.info("Zemberek Class loaded successfully")
             return True
+
         else:
             logging.error("Zemberek Class could not be loaded")
             self._errors.append("Zemberek Class could not be loaded")

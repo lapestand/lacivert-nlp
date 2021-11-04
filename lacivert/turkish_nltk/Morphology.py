@@ -2,7 +2,7 @@ from jpype import JClass, getDefaultJVMPath, startJVM, shutdownJVM, JString, isJ
 from typing import List
 import os
 import logging
-import properties
+from lacivert import properties
 
 
 class Morphology:
@@ -13,14 +13,21 @@ class Morphology:
 
 
     def __init__(self):
-        self.morphology: JClass = JClass('zemberek.morphology.TurkishMorphology')
+        
+        Morphology: JClass = JClass('zemberek.morphology.TurkishMorphology')
+        self.morphology: Morphology = Morphology.createWithDefaults()
+
         self.RootLexicon: JClass = JClass('zemberek.morphology.lexicon.RootLexicon')
+        
         self.InformalAnalysisConverter: JClass = JClass('zemberek.morphology.analysis.InformalAnalysisConverter')
+        
         self.AnalysisFormatters: JClass = JClass('zemberek.morphology.analysis.AnalysisFormatters')
+        
         self.DictionaryItem: JClass = JClass('zemberek.morphology.lexicon.DictionaryItem')
+        
         self.WordAnalysis: JClass = JClass('zemberek.morphology.analysis.WordAnalysis')
         
-        
+                
         logging.info("Morphology class initialized")
 
     def disambiguate(self, sentence):
