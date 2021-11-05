@@ -3,7 +3,6 @@ sys.path.append("../")
 
 from lacivert.turkish_nltk.Morphology import Morphology
 from lacivert.helper.Helper import JVMHelper
-from jpype import JClass, getDefaultJVMPath, startJVM, shutdownJVM, JString, isJVMStarted, java
 import logging
 from lacivert import properties
 
