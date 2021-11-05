@@ -66,6 +66,9 @@ class Morphology:
         return res
 
 
+    def disambiguate_doc(self, doc): pass
+
+
     def change_stem(self, source_word: str, target_word: str) -> str:
         logging.debug(f"Stem changing for '{target_word}' using '{source_word}' as source.")
         new_stem: self.DictionaryItem = (
@@ -102,5 +105,32 @@ class Morphology:
         
         return None if len(generated) == 0 else str(generated[0].surface)
 
-
     
+    def change_stem_of_analysed_word(self, source_word, target_word):
+
+        new_stem: self.DictionaryItem = (
+            self.morphology.getLexicon().getMatchingItems(target_word).get(0)
+        )
+
+        logging.debug(f"Lexicon for {target_word} is: {self.morphology.getLexicon().getMatchingItems(target_word).get(0)}")
+        logging.debug(f"Dict Item of above lexicon {new_stem}")
+
+        # print(type(source_word["morphemes"]))
+        generated: java.util.ArrayList = (
+            self.morphology.getWordGenerator().generate(
+                new_stem, source_word["morphemes"]
+            )
+        )
+
+        
+        # for gen_word in generated:
+        #     print(
+        #         f'\nInput Analysis: {source_word["dictFormStr"]}'
+        #         f'\nAfter Stem Change, Word: {str(gen_word.surface)}'
+        #         '\nAfter Stem Change, Analysis:'
+        #         f'{str(gen_word.analysis.formatLong())}'
+        #     )
+        
+        logging.info(f"{len(generated)} {'word' if len(generated) == 1 else 'words'} generated.")
+        
+        return None if len(generated) == 0 else str(generated[0].surface)

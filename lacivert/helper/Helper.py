@@ -1,8 +1,7 @@
 from jpype import JClass, getDefaultJVMPath, startJVM, shutdownJVM, JString, isJVMStarted, java
 from typing import List
-import os
-import logging
-from .. import properties
+import os, traceback, sys, logging
+from lacivert import properties
 
 
 class JVMHelper:
@@ -57,3 +56,20 @@ class JVMHelper:
 
 
 
+class InputHandler:
+    def __init__(self):
+        pass
+
+    def get_file_content_as_str(self, file_path) -> str:
+        try:
+            with open(file_path, 'r', encoding=properties.ENCODING) as src:
+                source_text = src.read()
+        except Exception as err:
+            logging.warning("Error while reading the source file!")
+            traceback.print_exc()
+            sys.exit(err)
+        
+        logging.info("Successfully readed content from file.")
+        return source_text
+
+    
